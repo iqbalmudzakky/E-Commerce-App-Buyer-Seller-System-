@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Elektronik"
+  },
+  {
+    "id": 2,
+    "name": "Pakaian"
+  },
+  {
+    "id": 3,
+    "name": "Alat Rumah Tangga"
+  },
+  {
+    "id": 4,
+    "name": "Makanan & Minuman"
+  },
+  {
+    "id": 5,
+    "name": "Olahraga"
+  }
+]

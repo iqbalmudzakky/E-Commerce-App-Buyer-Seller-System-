@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "fullName": "Andi Pratama",
+    "address": "Jakarta Selatan",
+    "phone": "08123456789",
+    "userId": 1
+  },
+  {
+    "id": 2,
+    "fullName": "Rina Wati",
+    "address": "Surabaya",
+    "phone": "08223344556",
+    "userId": 2
+  },
+  {
+    "id": 3,
+    "fullName": "Budi Santoso",
+    "address": "Bandung",
+    "phone": "08129876543",
+    "userId": 3
+  },
+  {
+    "id": 4,
+    "fullName": "Siti Rahma",
+    "address": "Yogyakarta",
+    "phone": "08512345678",
+    "userId": 4
+  },
+  {
+    "id": 5,
+    "fullName": "Dimas Arif",
+    "address": "Medan",
+    "phone": "08229811234",
+    "userId": 5
+  }
+]

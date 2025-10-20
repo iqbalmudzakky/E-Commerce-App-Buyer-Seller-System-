@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop Asus VivoBook",
+    "description": "Laptop ringan dengan prosesor Ryzen 5",
+    "price": 8500000,
+    "userId": 1,
+    "categoryId": 1
+  },
+  {
+    "id": 2,
+    "name": "Smartphone Samsung A54",
+    "description": "Layar Super AMOLED 120Hz, baterai 5000mAh",
+    "price": 6000000,
+    "userId": 1,
+    "categoryId": 1
+  },
+  {
+    "id": 3,
+    "name": "Kemeja Batik Pria Modern",
+    "description": "Bahan katun premium, cocok untuk kantor",
+    "price": 300000,
+    "userId": 2,
+    "categoryId": 2
+  },
+  {
+    "id": 4,
+    "name": "Setrika Uap Philips",
+    "description": "Mudah digunakan dan hemat listrik",
+    "price": 450000,
+    "userId": 2,
+    "categoryId": 3
+  },
+  {
+    "id": 5,
+    "name": "Rice Cooker Sharp 1.8L",
+    "description": "Anti lengket, desain elegan",
+    "price": 550000,
+    "userId": 1,
+    "categoryId": 3
+  },
+  {
+    "id": 6,
+    "name": "Sepatu Lari Adidas Ultraboost",
+    "description": "Nyaman dan ringan untuk olahraga harian",
+    "price": 2200000,
+    "userId": 2,
+    "categoryId": 5
+  },
+  {
+    "id": 7,
+    "name": "Cokelat Belgia Premium",
+    "description": "Rasa lembut dan manis seimbang",
+    "price": 180000,
+    "userId": 1,
+    "categoryId": 4
+  },
+  {
+    "id": 8,
+    "name": "Teh Hijau Jepang Matcha",
+    "description": "Kaya antioksidan, aroma khas Jepang",
+    "price": 120000,
+    "userId": 1,
+    "categoryId": 4
+  },
+  {
+    "id": 9,
+    "name": "Hand Blender Philips HR2222",
+    "description": "Cocok untuk membuat jus dan sup",
+    "price": 750000,
+    "userId": 2,
+    "categoryId": 3
+  },
+  {
+    "id": 10,
+    "name": "Smartwatch Xiaomi Mi Band 8",
+    "description": "Pelacak aktivitas dan detak jantung",
+    "price": 650000,
+    "userId": 1,
+    "categoryId": 1
+  }
+]
