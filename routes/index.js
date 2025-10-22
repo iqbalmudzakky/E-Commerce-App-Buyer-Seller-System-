@@ -1,16 +1,16 @@
 const express = require("express")
 const router = express.Router()
 
-const authRoutes = require("./auth")
-const productRoutes = require("./products")
-const categoryRoutes = require("./categories")
+const userRoutes = require("./user")
+const productRoutes = require("./product")
+const categoryRoutes = require("./category")
 
 const HomeController = require("../controllers/homeController")
 
 
 router.get("/", HomeController.home)
 
-router.use("/", authRoutes)
+router.use("/", userRoutes)
 router.use("/products", productRoutes)
 router.use("/categories", categoryRoutes)
 
@@ -18,7 +18,7 @@ router.use("/categories", categoryRoutes)
 Index Routes
 /	GET	Home page
 
-Auth Routes
+User Routes
 /register	GET/POST	Register form
 /login	GET/POST	Login form
 /logout	GET	Logout dan redirect ke login
@@ -31,7 +31,7 @@ Product Routes
 
 Category Routes
 /categories	GET	Menampilkan list kategori dan produk di dalamnya
-/categories/add	GET/POST	Menambahkan kategori baru
+/categories/add	GET/POST Menambahkan kategori baru
 
 Wishlist Routes
 /wishlist	GET	Menampilkan wishlist produk milik buyer
