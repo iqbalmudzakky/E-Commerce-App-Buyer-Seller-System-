@@ -8,9 +8,16 @@
 <body>
   <button><a href="/logout">Sign Out</a></button>
   <button><a href="/wishlist">Wishlist</a></button>
+
+  <p>Account: <%= role %></p>
+
   <center>
     <h1>List Product</h1>
 
+    <% if (role === "seller") { %>
+      <button><a href="/products/add">Add Product</a></button>
+    <% } %>
+      <button><a href="/categories">By Category</a></button>
     <table border="1">
       <tr>
         <th>No.</th>
@@ -21,6 +28,9 @@
         <th>Last Updated</th>
         <th>Contact</th>
         <th>Address</th>
+        <% if (role === "seller") { %>
+          <th>Action</th>
+        <% } %>
       </tr>
       <% data.forEach((el, i) => { %>
         <tr>
@@ -32,6 +42,12 @@
           <td><%= el.updatedAt %></td>
           <td><%= el.User.Profile.phone %></td>
           <td><%= el.User.Profile.address %></td>
+          <% if (role === "seller") { %>
+          <td>
+            <button><a href="/products/<%= el.id %>/edit">Edit</a></button>
+            <button><a href="/products/<%= el.id %>/delete">Delete</a></button>
+          </td>
+        <% } %>
         </tr>
       <% }) %>
     </table>
