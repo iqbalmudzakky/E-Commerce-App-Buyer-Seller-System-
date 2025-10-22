@@ -9,7 +9,7 @@ router.post("/register", UserController.register)
 router.get("/login", UserController.showLogin)
 router.post("/login", UserController.login)
 
-// router.get("/logout", UserController.logout)
+router.get("/logout", UserController.logout)
 
 /*
 Auth Routes
