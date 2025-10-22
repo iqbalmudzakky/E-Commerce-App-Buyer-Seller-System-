@@ -33,6 +33,7 @@ let middleware = function (req, res, next) {
 app.use('/user/:id', middleware, HomeController.getUser) // <<-- middleware khusus untuk handle 1 routes
 */
 
+/*
 // EXPRESS-SESSION
 const express = require('express')
 let session = require('express-session')
@@ -56,6 +57,6 @@ app.use(router)
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 })
-
+*/
 
 

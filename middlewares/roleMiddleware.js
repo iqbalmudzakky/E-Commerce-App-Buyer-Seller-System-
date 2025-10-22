@@ -6,6 +6,12 @@ function isSeller(req, res, next) {
   res.redirect(`/products?errors=${err}`)
 }
 
-// isBuyer
+function isBuyer(req, res, next) {
+  if (req.session.role === "buyer") {
+    return next()
+  }
+  let err = "Only seller can access this page"
+  res.redirect(`/products?errors=${err}`)
+}
 
-module.exports = { isSeller }
+module.exports = { isSeller, isBuyer }
