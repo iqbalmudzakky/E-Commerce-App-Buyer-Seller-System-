@@ -24,8 +24,8 @@ class ProductController {
           }, Category]
         })
       }
-      res.json(data)
-      // res.render("products/list", { data, role })
+      // res.json(data)
+      res.render("products/list", { data, role })
     } catch (err) {
       console.log(err);
 
