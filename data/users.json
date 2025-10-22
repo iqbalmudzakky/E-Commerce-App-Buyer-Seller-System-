@@ -2,31 +2,31 @@
   {
     "id": 1,
     "email": "seller1@example.com",
-    "password": "$2a$10$abcdefghijk1234567890",
+    "password": "seller1pass",
     "role": "seller"
   },
   {
     "id": 2,
     "email": "seller2@example.com",
-    "password": "$2a$10$abcdefghijk2233445566",
+    "password": "seller2pass",
     "role": "seller"
   },
   {
     "id": 3,
     "email": "buyer1@example.com",
-    "password": "$2a$10$abcdefghijk9988776655",
+    "password": "buyer1pass",
     "role": "buyer"
   },
   {
     "id": 4,
     "email": "buyer2@example.com",
-    "password": "$2a$10$abcdefghijk4455667788",
+    "password": "buyer2pass",
     "role": "buyer"
   },
   {
     "id": 5,
     "email": "buyer3@example.com",
-    "password": "$2a$10$abcdefghijk5566778899",
+    "password": "buyer3pass",
     "role": "buyer"
   }
 ]

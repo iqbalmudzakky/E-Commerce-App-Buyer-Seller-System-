@@ -9,7 +9,32 @@
   <button><a href="/logout">Sign Out</a></button>
   <button><a href="/wishlist">Wishlist</a></button>
   <center>
-    <h1>Sampai di list produk</h1>
+    <h1>List Product</h1>
+
+    <table border="1">
+      <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Last Updated</th>
+        <th>Contact</th>
+        <th>Address</th>
+      </tr>
+      <% data.forEach((el, i) => { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= el.name %></td>
+          <td><%= el.Category.name %></td>
+          <td><%= el.description %></td>
+          <td><%= el.price %></td>
+          <td><%= el.updatedAt %></td>
+          <td><%= el.User.Profile.phone %></td>
+          <td><%= el.User.Profile.address %></td>
+        </tr>
+      <% }) %>
+    </table>
   </center>
   
 </body>
