@@ -3,6 +3,7 @@ const router = express.Router()
 
 const authRoutes = require("./auth")
 const productRoutes = require("./products")
+const categoryRoutes = require("./categories")
 
 const HomeController = require("../controllers/homeController")
 
@@ -11,6 +12,8 @@ router.get("/", HomeController.home)
 
 router.use("/", authRoutes)
 router.use("/products", productRoutes)
+router.use("/categories", categoryRoutes)
+
 /*
 Index Routes
 /	GET	Home page
