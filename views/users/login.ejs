@@ -6,8 +6,15 @@
   <title>Login</title>
 </head>
 <body>
+  <button><a href="/register">Register</a></button>
+
   <center>
     <h1>login first!</h1>
+
+    <% if (errors) { %>
+      <p style="color: red;"><%= errors %></p>
+    <% } %>
+
     <form action="/login" method="post">
       <div>
         <label for="">Email</label>
