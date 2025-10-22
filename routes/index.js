@@ -7,12 +7,16 @@ const categoryRoutes = require("./category")
 
 const HomeController = require("../controllers/homeController")
 
-
 router.get("/", HomeController.home)
 
+// User
 router.use("/", userRoutes)
-router.use("/products", productRoutes)
-router.use("/categories", categoryRoutes)
+
+// Product
+// router.use("/products", productRoutes)
+
+// Category
+// router.use("/categories", categoryRoutes)
 
 /*
 Index Routes
