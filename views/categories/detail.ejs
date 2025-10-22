@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
+      .wrap { max-width:900px; margin:0 auto; }
+      h1 { text-align:center; margin-bottom:1rem; }
+      table { width:100%; border-collapse: collapse; }
+      th, td { padding:.5rem; border-bottom:1px solid #ddd; text-align:left; }
+      th { background:#fafafa; }
+      .empty { text-align:center; font-style:italic; color:#555; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Produk dalam <%= category.name %></h1>
+
+      <% if (!category.Products || !category.Products.length) { %>
+        <p class="empty">Belum ada produk dalam kategori ini.</p>
+      <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nama Produk</th>
+              <th>Deskripsi</th>
+              <th>Harga</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% category.Products.forEach((p, i) => { %>
+              <tr>
+                <td><%= i + 1 %></td>
+                <td><%= p.name %></td>
+                <td><%= p.description || '-' %></td>
+                <td>Rp <%= (p.price || 0).toLocaleString('id-ID') %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+
+      <div style="text-align:center; margin-top:1rem;">
+        <a href="/categories">← Kembali ke Daftar Kategori</a>
+      </div>
+    </div>
+  </body>
+</html>
