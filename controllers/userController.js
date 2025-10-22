@@ -1,3 +1,4 @@
+const { checkPass } = require("../helper/bcryptHelper")
 const { User, Profile } = require("../models")
 
 class UserController {
@@ -16,7 +17,6 @@ class UserController {
       const { fullName, address, phone, email, password, role } = req.body
 
       let newUser = await User.create({ email, password, role })
-      // console.log(newUser);
 
       await Profile.create({ fullName, address, phone, UserId: newUser.id })
 
@@ -36,7 +36,9 @@ class UserController {
 
   static async showLogin(req, res) {
     try {
-      res.render("users/login")
+      const { errors } = req.query
+
+      res.render("users/login", { errors })
     } catch (err) {
       res.send(err)
     }
@@ -45,6 +47,45 @@ class UserController {
   static async login(req, res) {
     try {
       const { email, password } = req.body
+
+      let user = await User.findOne({
+        where: {
+          email: email
+        }
+      })
+
+      if (user) {
+        if (checkPass(password, user.password)) {
+          req.session.userId = user.id
+          req.session.role = user.role
+
+          res.redirect("/products")
+
+        } else {
+          let err = "invalid password"
+          res.redirect(`/login?errors=${err}`)
+        }
+
+      } else {
+        let err = "email not found"
+        res.redirect(`/login?errors=${err}`)
+      }
+
+    } catch (err) {
+      console.log(err);
+      res.send(err)
+    }
+  }
+
+  static async logout(req, res) {
+    try {
+      req.session.destroy(err => {
+        if (err) {
+          res.send(err)
+        } else {
+          res.redirect("/login")
+        }
+      })
 
     } catch (err) {
       res.send(err)

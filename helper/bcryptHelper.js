@@ -7,4 +7,8 @@ function hashPass(input) {
   return hash
 }
 
-module.exports = { hashPass }
+function checkPass(inputPass, instancePass) {
+  return bcrypt.compareSync(inputPass, instancePass)
+}
+
+module.exports = { hashPass, checkPass }

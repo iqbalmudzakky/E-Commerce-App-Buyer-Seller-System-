@@ -6,14 +6,17 @@ const productRoutes = require("./product")
 const categoryRoutes = require("./category")
 
 const HomeController = require("../controllers/homeController")
+const { isLoggedIn } = require("../middlewares/authMiddleware")
 
 router.get("/", HomeController.home)
 
-// User
-router.use("/", userRoutes)
+// Auth
+router.use("/", userRoutes) // <<-- login process
+
+router.use(isLoggedIn) // <<-- auth process
 
 // Product
-// router.use("/products", productRoutes)
+router.use("/products", productRoutes)
 
 // Category
 // router.use("/categories", categoryRoutes)
