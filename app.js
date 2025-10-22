@@ -1,4 +1,5 @@
 const express = require("express")
+
 let session = require("express-session")
 
 const router = require("./routes/index")
@@ -24,3 +25,6 @@ app.use(router)
 app.listen(port, () => {
   console.log(`App running on port: ${port}`);
 })
+
+const wishlistRouter = require('./routes/wishlist');
+app.use('/wishlist', wishlistRouter);
