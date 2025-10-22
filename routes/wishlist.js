@@ -1,13 +1,9 @@
-const express = require("express")
-const WishlistController = require("../controllers/wishlistController")
+const express = require('express');
+const WishlistController = require('../controllers/wishlistController');
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/", WishlistController.showCategory)
+// Halaman wishlist sederhana (placeholder dulu)
+router.get('/', WishlistController.list);
 
-/*
-Wishlist Routes
-/wishlist	GET	Menampilkan wishlist produk milik buyer
-*/
-
-module.exports = router
+module.exports = router;

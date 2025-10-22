@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
+      .wrap { max-width: 400px; margin: 0 auto; }
+      h1 { text-align:center; margin-bottom:1rem; }
+      label { display:block; margin:.5rem 0 .25rem; }
+      input[type=text] { width:100%; padding:.5rem; border:1px solid #bbb; border-radius:.5rem; }
+      button { margin-top:1rem; padding:.5rem 1rem; border:1px solid #aaa; background:#f7f7f7; border-radius:.5rem; cursor:pointer; }
+      button:hover { background:#eee; }
+      .error { color:red; margin-bottom:1rem; text-align:center; }
+      a.btn { display:inline-block; margin-top:1rem; text-decoration:none; color:#222; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Tambah Kategori</h1>
+
+      <% if (error) { %>
+        <div class="error"><%= error %></div>
+      <% } %>
+
+      <form method="post" action="/categories/add">
+        <label>Nama Kategori</label>
+        <input type="text" name="name" value="<%= oldInput.name || '' %>" />
+        <button type="submit">Simpan</button>
+      </form>
+
+      <div style="text-align:center;">
+        <a class="btn" href="/categories">← Kembali</a>
+      </div>
+    </div>
+  </body>
+</html>
