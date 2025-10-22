@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+</head>
+<body>
+  <button><a href="/login">Login</a></button>
+  <center>
+    <h1>Register Form</h1>
+
+    <% if (errors) { %>
+      <% errors = errors.split(",") %>
+      <% errors.forEach(el => { %>
+        <p style="color: red;"><%= el %></p>
+      <% }) %>
+    <% } %>
+
+    <form action="/register" method="post">
+      <div>
+        <label for="">Full Name :</label>
+        <input type="text" name="fullName" id="">
+      </div>
+      
+      <br>
+
+      <div>
+        <label for="">Address :</label>
+        <input type="text" name="address" id="">
+      </div>
+      
+      <br>
+
+      <div>
+        <label for="">Phone :</label>
+        <input type="text" name="phone" id="">
+      </div>
+
+      <br>
+
+      <div>
+        <label for="">Email :</label>
+        <input type="text" name="email" id="">
+      </div>
+      
+      <br>
+
+      <div>
+        <label for="">Password :</label>
+        <input type="text" name="password" id="">
+      </div>
+
+      <br>
+
+      <div>
+        <label for="">Role :</label>
+        <input type="radio" name="role" value="seller" id=""> Seller
+        <input type="radio" name="role" value="buyer" id=""> Buyer
+      </div>
+
+      <br>
+
+      <input type="submit" value="Submit">
+    </form>
+  </center>
+</body>
+</html>

@@ -3,7 +3,6 @@ class HomeController {
     try {
       res.render("home")
     } catch (err) {
-      console.log(err);
       res.send(err)
     }
   }
