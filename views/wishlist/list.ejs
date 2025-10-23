@@ -20,11 +20,41 @@
       <h1><%= title || 'My Wishlist' %></h1>
       <p class="help">Halaman wishlist aktif. Fungsinya akan diisi nanti (sesuai prioritas tim).</p>
 
+      <% if (data) { %>
+        <h1>Hello, <%= data.Profile.fullName %>, wanna checkout now?</h1>
+      <table border="1">
+        <tr>
+          <th>No.</th>
+          <th>Product Name</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Last Updated</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+        <% data.Products.forEach((el, i) => { %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= el.name %></td>
+            <td><%= el.Category.name %></td>
+            <td><%= el.description %></td>
+            <td><%= el.idr %></td>
+            <td><%= el.lastUpdate(el.updatedAt) %></td>
+            <td><%= el.User.Profile.phone %></td>
+            <td><%= el.User.Profile.address %></td>
+            <td><button><a href="">Buy Now</a></button></td>
+          </tr>
+        <% }) %>
+      </table>
+      <% } else { %>
+        <p class="empty">Belum ada item ditampilkan di sini.</p>
+      <% } %>
+
       <div class="actions">
         <a class="btn" href="/products">← Kembali ke Product List</a>
       </div>
-
-      <p class="empty">Belum ada item ditampilkan di sini.</p>
     </div>
   </body>
 </html>

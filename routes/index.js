@@ -4,6 +4,7 @@ const router = express.Router()
 const userRoutes = require("./user")
 const productRoutes = require("./product")
 const categoryRoutes = require("./category")
+const wishlistRoutes = require('./wishlist');
 
 const HomeController = require("../controllers/homeController")
 const { isLoggedIn } = require("../middlewares/authMiddleware")
@@ -19,7 +20,10 @@ router.use(isLoggedIn) // <<-- auth process
 router.use("/products", productRoutes)
 
 // Category
-// router.use("/categories", categoryRoutes)
+router.use("/categories", categoryRoutes);
+
+// Wishlist
+router.use('/wishlist', wishlistRoutes);
 
 /*
 Index Routes

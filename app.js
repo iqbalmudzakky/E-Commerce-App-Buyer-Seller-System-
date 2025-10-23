@@ -25,10 +25,3 @@ app.use(router)
 app.listen(port, () => {
   console.log(`App running on port: ${port}`);
 })
-
-const wishlistRouter = require('./routes/wishlist');
-app.use('/wishlist', wishlistRouter);
-
-const categoryRouter = require("./routes/category");
-app.use("/categories", categoryRouter);
-

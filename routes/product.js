@@ -1,11 +1,12 @@
 const express = require("express")
+const { isSeller, isBuyer } = require("../middlewares/roleMiddleware")
 const ProductController = require("../controllers/productController")
 
 const router = express.Router()
 
 router.get("/", ProductController.showProduct)
 
-// router.get("/add", ProductController.showAddProduct)
+router.get("/add", isSeller, ProductController.showAddProduct)
 // router.post("/add", ProductController.addProduct)
 
 // router.get("/:id/edit", ProductController.showEditProduct)

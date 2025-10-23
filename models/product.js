@@ -4,11 +4,32 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    get idr() {
+      return this.price.toLocaleString("id-ID", {
+        style: "currency",
+        currency: "IDR"
+      })
+    }
+
+    lastUpdate(date) {
+      let now = new Date()
+      let diffMs = now.getTime() - new Date(date)
+      let diffSec = Math.floor(diffMs / 1000)
+      let diffMin = Math.floor(diffSec / 60)
+      let diffHour = Math.floor(diffMin / 60)
+      let diffDay = Math.floor(diffHour / 24)
+
+      if (diffSec < 60) {
+        return `${diffSec} sec ago`
+      } else if (diffMin < 60) {
+        return `${diffMin} min ago`
+      } else if (diffHour < 24) {
+        return `${diffHour} hour ago`
+      } else {
+        return `${diffDay} day ago`
+      }
+    }
+
     static associate(models) {
       // define association here
       Product.belongsTo(models.User)

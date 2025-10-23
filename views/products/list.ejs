@@ -13,7 +13,11 @@
 
   <center>
     <h1>List Product</h1>
-
+     
+    <% if (errors) { %>
+      <h2 style="color: red;"><%= errors %></h2>
+    <% } %>
+    
     <% if (role === "seller") { %>
       <button><a href="/products/add">Add Product</a></button>
     <% } %>
@@ -38,8 +42,8 @@
           <td><%= el.name %></td>
           <td><%= el.Category.name %></td>
           <td><%= el.description %></td>
-          <td><%= el.price %></td>
-          <td><%= el.updatedAt %></td>
+          <td><%= el.idr %></td>
+          <td><%= el.lastUpdate(el.updatedAt) %></td>
           <td><%= el.User.Profile.phone %></td>
           <td><%= el.User.Profile.address %></td>
           <% if (role === "seller") { %>
