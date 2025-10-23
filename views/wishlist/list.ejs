@@ -20,7 +20,7 @@
       <h1><%= title || 'My Wishlist' %></h1>
       <p class="help">Halaman wishlist aktif. Fungsinya akan diisi nanti (sesuai prioritas tim).</p>
 
-      <% if (data) { %>
+      <% if (data.Products.length) { %>
         <h1>Hello, <%= data.Profile.fullName %>, wanna checkout now?</h1>
       <table border="1">
         <tr>

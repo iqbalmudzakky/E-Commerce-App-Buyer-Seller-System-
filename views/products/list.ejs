@@ -9,53 +9,62 @@
   <button><a href="/logout">Sign Out</a></button>
   <button><a href="/wishlist">Wishlist</a></button>
 
-  <p>Account: <%= role %></p>
+  <% role = role.slice(0, 1).toUpperCase() + role.slice(1, role.length) %>
+  <p>Account: <%= role %> <%= name %></p>
 
-  <center>
-    <h1>List Product</h1>
-     
-    <% if (errors) { %>
-      <h2 style="color: red;"><%= errors %></h2>
-    <% } %>
+  <h1>List Product</h1>
     
-    <% if (role === "seller") { %>
-      <button><a href="/products/add">Add Product</a></button>
-    <% } %>
-      <button><a href="/categories">By Category</a></button>
-    <table border="1">
+  <% if (errors) { %>
+    <h2 style="color: red;"><%= errors %></h2>
+  <% } %>
+  
+  <% if (role === "seller") { %>
+    <button><a href="/products/add">Add Product</a></button>
+  <% } %>
+  <button><a href="/categories">By Category</a></button>
+  
+  <form action="/products" method="get">
+    <input type="text" name="search" placeholder="search product">
+    <input type="submit" value="search">
+  </form>
+
+  <table border="1">
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Last Updated</th>
+      <th>Contact</th>
+      <th>Seller Name</th>
+      <th>Address</th>
+      <% if (role === "seller") { %>
+        <th>Action</th>
+      <% } %>
+    </tr>
+    
+    <% data.forEach((el, i) => { %>
       <tr>
-        <th>No.</th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Last Updated</th>
-        <th>Contact</th>
-        <th>Address</th>
+        <td><%= i + 1 %></td>
+        <td><%= el.name %></td>
+        <td><%= el.Category.name %></td>
+        <td><%= el.description %></td>
+        <td><%= el.idr %></td>
+        <td><%= el.lastUpdate(el.updatedAt) %></td>
+        <td><%= el.User.Profile.phone %></td>
+        <td><%= el.User.Profile.fullName %></td>
+        <td><%= el.User.Profile.address %></td>
         <% if (role === "seller") { %>
-          <th>Action</th>
-        <% } %>
+        <td>
+          <button><a href="/products/<%= el.id %>/edit">Edit</a></button>
+          <button><a href="/products/<%= el.id %>/delete">Delete</a></button>
+        </td>
+      <% } %>
       </tr>
-      <% data.forEach((el, i) => { %>
-        <tr>
-          <td><%= i + 1 %></td>
-          <td><%= el.name %></td>
-          <td><%= el.Category.name %></td>
-          <td><%= el.description %></td>
-          <td><%= el.idr %></td>
-          <td><%= el.lastUpdate(el.updatedAt) %></td>
-          <td><%= el.User.Profile.phone %></td>
-          <td><%= el.User.Profile.address %></td>
-          <% if (role === "seller") { %>
-          <td>
-            <button><a href="/products/<%= el.id %>/edit">Edit</a></button>
-            <button><a href="/products/<%= el.id %>/delete">Delete</a></button>
-          </td>
-        <% } %>
-        </tr>
-      <% }) %>
-    </table>
-  </center>
+    <% }) %>
+  </table>
+  
   
 </body>
 </html>

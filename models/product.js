@@ -1,9 +1,9 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model, Op } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
+
     get idr() {
       return this.price.toLocaleString("id-ID", {
         style: "currency",
@@ -30,6 +30,44 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
+    static async getProductBySearch(userId, role, search, User, Profile, Category) {
+      let data
+      console.log(role);
+
+      if (role === "buyer") {
+        data = await Product.findAll({
+          include: [{
+            model: User,
+            include: Profile
+          }, Category],
+          where: {
+            name: {
+              [Op.iLike]: `%${search}%`
+            }
+          }
+        })
+
+      } else if (role === "seller") {
+        data = await Product.findAll({
+          include: [{
+            model: User,
+            where: {
+              id: userId
+            },
+            include: Profile
+          }, Category],
+          where: {
+            name: {
+              [Op.iLike]: `%${search}%`
+            }
+          }
+        })
+      }
+      console.log(data);
+
+      return data
+    }
+
     static associate(models) {
       // define association here
       Product.belongsTo(models.User)
@@ -37,6 +75,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Category)
     }
   }
+
   Product.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,

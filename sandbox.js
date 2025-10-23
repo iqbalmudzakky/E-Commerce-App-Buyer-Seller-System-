@@ -59,4 +59,9 @@ app.listen(port, () => {
 })
 */
 
+let obj = { a: 1 }
+let arr = [1, 2]
+
+console.log(typeof arr);
+
 

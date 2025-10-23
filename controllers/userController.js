@@ -49,15 +49,18 @@ class UserController {
       const { email, password } = req.body
 
       let user = await User.findOne({
+        include: Profile,
         where: {
           email: email
         }
       })
+      // console.log(user.Profile);
 
       if (user) {
         if (checkPass(password, user.password)) {
           req.session.userId = user.id
           req.session.role = user.role
+          req.session.userName = user.Profile.fullName
 
           res.redirect("/products")
 
