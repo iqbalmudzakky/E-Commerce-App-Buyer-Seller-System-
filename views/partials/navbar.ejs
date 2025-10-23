@@ -1,0 +1,42 @@
+<% /* views/partials/navbar.ejs */ %>
+<style>
+  .nav { position:sticky; top:0; z-index:10; background:#ffffffcc; backdrop-filter: blur(6px); border-bottom:1px solid #eee; }
+  .nav .inner { max-width:1100px; margin:0 auto; padding:.6rem 1rem; display:flex; align-items:center; gap:.75rem; }
+  .brand { font-weight:800; letter-spacing:.2px; }
+  .nav a { text-decoration:none; color:#222; }
+  .nav .grow { flex:1 1 auto; }
+  .nav form { display:flex; gap:.4rem; }
+  .nav input[type="text"] { padding:.45rem .6rem; border:1px solid #ccc; border-radius:.5rem; min-width: 180px; }
+  .btn { display:inline-block; padding:.45rem .75rem; border:1px solid #bbb; border-radius:.5rem; background:#f7f7f7; text-decoration:none; color:#222; }
+  .btn:hover { background:#eee; }
+  .links { display:flex; align-items:center; gap:.5rem; }
+</style>
+
+<nav class="nav">
+  <div class="inner">
+    <!-- Kiri: Brand -->
+    <div class="brand"><a href="/">E-Commerce</a></div>
+
+    <!-- Tengah: Search (GET /products?q=...) -->
+    <div class="grow">
+      <form action="/products" method="get">
+        <input type="text" name="search" placeholder="Cari produk..." />
+        <button type="submit" class="btn">Search</button>
+      </form>
+    </div>
+
+    <!-- Kanan: Auth-aware -->
+    <div class="links">
+      <a href="/products" class="btn">Products</a>
+      <a href="/categories" class="btn">Categories</a>
+
+      <% if (role && name) { %>
+        <span>Hi, <strong><%= name %></strong></span>
+        <a href="/logout" class="btn">Sign Out</a>
+      <% } else { %>
+        <a href="/login" class="btn">Sign In</a>
+        <a href="/register" class="btn">Sign Up</a>
+      <% } %>
+    </div>
+  </div>
+</nav>
