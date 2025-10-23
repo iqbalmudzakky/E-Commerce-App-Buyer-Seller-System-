@@ -1,19 +1,58 @@
-const { Category, Product } = require("../models");
+const { Category, Product, Sequelize, sequelize } = require("../models"); // [ADD] tambahkan Sequelize & sequelize untuk COUNT
+
+// ======================================================
+// CLASS: CategoryController
+// ======================================================
 
 class CategoryController {
+
   // ======================================================
   // GET /categories
   // Menampilkan seluruh kategori dari tabel Categories
+  // [UPDATE] Sekarang menyesuaikan role user:
+  //   - Buyer  => semua kategori
+  //   - Seller => hanya kategori yang memiliki produk milik seller tsb
   // ======================================================
+  
   static async showCategory(req, res) {
     try {
-      const categories = await Category.findAll({
-        order: [["name", "ASC"]],
-      });
+      // [ADD] ambil role & user id dari session
+      const role = req.session?.role;      // 'Buyer' | 'Seller'
+      const userId = req.session?.userId;  // id user login
+      let categories;
 
+      if (role === "Seller" && userId) {
+        // [ADD] Seller: tampilkan hanya kategori yang punya produk milik seller ini
+        categories = await Category.findAll({
+          include: [
+            {
+              model: Product,
+              attributes: [],               // hanya butuh filter, bukan datanya
+              where: { UserId: userId },
+              required: true                // wajib ada produk milik seller
+            }
+          ],
+          attributes: [
+            "id",
+            "name",
+            // [ADD] hitung jumlah produk milik seller per kategori
+            [sequelize.fn("COUNT", sequelize.col("Products.id")), "productCount"]
+          ],
+          group: ["Category.id"],
+          order: [["name", "ASC"]],
+        });
+      } else {
+        // [KEEP] Buyer (atau fallback): tampil semua kategori seperti sebelumnya
+        categories = await Category.findAll({
+          order: [["name", "ASC"]],
+        });
+      }
+
+      // [ADD] kirim role ke view (opsional untuk badge di UI)
       res.render("categories/list", {
         title: "Category List",
         categories,
+        role,
       });
     } catch (err) {
       console.log("CategoryController.showCategory error =>", err);
