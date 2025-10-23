@@ -9,8 +9,7 @@
   <button><a href="/logout">Sign Out</a></button>
   <button><a href="/wishlist">Wishlist</a></button>
 
-  <% role = role.slice(0, 1).toUpperCase() + role.slice(1, role.length) %>
-  <p>Account: <%= role %> <%= name %></p>
+  <p>Account: <%= role.slice(0, 1).toUpperCase() + role.slice(1, role.length) %> <%= name %></p>
 
   <h1>List Product</h1>
     
@@ -21,7 +20,15 @@
   <% if (role === "seller") { %>
     <button><a href="/products/add">Add Product</a></button>
   <% } %>
-  <button><a href="/categories">By Category</a></button>
+  <button><a href="/categories">List Category</a></button>
+
+  <% if (msg) { %>
+    <p style="color: brown;"><%= msg %> has been deleted</p>
+  <% } %>
+
+  <% if (msgEdit) { %>
+    <p style="color: brown;"><%= msgEdit %> has been updated</p>
+  <% } %>
   
   <form action="/products" method="get">
     <input type="text" name="search" placeholder="search product">

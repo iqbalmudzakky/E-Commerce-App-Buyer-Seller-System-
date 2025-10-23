@@ -46,6 +46,8 @@ Category Routes
 
 Wishlist Routes
 /wishlist	GET	Menampilkan wishlist produk milik buyer
+/wishlist/:userId/buyNow GET generate invoice + QR
+/wishlist/:userId/success GET generate invoice + QR
 */
 
 module.exports = router

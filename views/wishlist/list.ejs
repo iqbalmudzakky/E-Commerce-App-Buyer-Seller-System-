@@ -8,6 +8,7 @@
       body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
       .wrap { max-width: 800px; margin: 0 auto; }
       h1 { margin-bottom: .5rem; text-align:center; }
+      h2 { margin-bottom: .5rem; text-align:center; }
       p.help { color:#555; text-align:center; }
       .actions { margin: 1.25rem 0 2rem; text-align:center; }
       a.btn { display:inline-block; padding:.5rem .9rem; border:1px solid #bbb; border-radius:.5rem; text-decoration:none; color:#222; background:#f7f7f7; }
@@ -21,7 +22,7 @@
       <p class="help">Halaman wishlist aktif. Fungsinya akan diisi nanti (sesuai prioritas tim).</p>
 
       <% if (data.Products.length) { %>
-        <h1>Hello, <%= data.Profile.fullName %>, wanna checkout now?</h1>
+        <h2>Hello, <%= data.Profile.fullName %>, wanna checkout now?</h2>
       <table border="1">
         <tr>
           <th>No.</th>
@@ -48,12 +49,14 @@
           </tr>
         <% }) %>
       </table>
+      
       <% } else { %>
         <p class="empty">Belum ada item ditampilkan di sini.</p>
       <% } %>
-
+        
       <div class="actions">
         <a class="btn" href="/products">← Kembali ke Product List</a>
+        <a class="btn" href="/wishlist/<%= data.id %>/buyNow">Buy Now</a>
       </div>
     </div>
   </body>

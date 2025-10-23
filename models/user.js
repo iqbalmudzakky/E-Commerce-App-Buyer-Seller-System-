@@ -68,10 +68,10 @@ module.exports = (sequelize, DataTypes) => {
   User.beforeCreate(user => {
     user.password = hashPass(user.password)
   })
-  User.beforeBulkCreate(user => {
-    user.forEach(el => {
-      el.password = hashPass(el.password)
-    })
-  })
+  // User.beforeBulkCreate(user => {
+  //   user.forEach(el => {
+  //     el.password = hashPass(el.password)
+  //   })
+  // })
   return User;
 };

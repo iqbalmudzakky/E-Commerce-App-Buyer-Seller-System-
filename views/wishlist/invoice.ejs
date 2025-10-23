@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice</title>
+</head>
+<body>
+  <h1>Invoice : <%= invoice %></h1>
+
+  <h3>Please scan this QR Code for payment</h3>
+
+  <img src="<%= qrImage %>" alt="QR Code">
+
+  <p>Or click this link: <a href="<%= paymentLink %>"><%= paymentLink %></a></p>
+</body>
+</html>

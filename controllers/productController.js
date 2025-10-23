@@ -3,7 +3,7 @@ const { Product, User, Category, Profile } = require("../models")
 class ProductController {
   static async showProduct(req, res) {
     try {
-      const { errors, search } = req.query
+      const { errors, search, msg, msgEdit } = req.query
 
       let name = req.session.name
       let role = req.session.role
@@ -19,7 +19,8 @@ class ProductController {
             include: [{
               model: User,
               include: Profile
-            }, Category]
+            }, Category],
+            order: [["id"]]
           })
         }
 
@@ -34,12 +35,15 @@ class ProductController {
                 id: userId
               },
               include: Profile
-            }, Category]
+            },
+              Category],
+            order: [["id"]]
           })
         }
       }
+      console.log(name);
 
-      res.render("products/list", { data, role, errors, name })
+      res.render("products/list", { data, role, errors, name, msg, msgEdit })
     } catch (err) {
       console.log(err);
 
@@ -50,6 +54,52 @@ class ProductController {
   static async showAddProduct(req, res) {
     try {
       res.render("products/add")
+    } catch (err) {
+      res.send(err)
+    }
+  }
+
+  static async deleteProduct(req, res) {
+    try {
+      const { id } = req.params
+
+      let product = await Product.findByPk(id)
+      await product.destroy()
+
+      let productName = product.name
+      res.redirect(`/products?msg=${productName}`)
+    } catch (err) {
+      // console.log(err);
+      res.send(err)
+    }
+  }
+
+  static async showEditProduct(req, res) {
+    try {
+      const { id } = req.params
+
+      let categories = await Category.findAll({
+        attibutes: ['id', 'name']
+      })
+      let data = await Product.findByPk(id)
+
+      res.render("products/edit", { data, categories })
+    } catch (err) {
+      res.send(err)
+    }
+  }
+
+  static async editProduct(req, res) {
+    try {
+      const { name, description, price, CategoryId } = req.body
+      const { id } = req.params
+
+      let instance = await Product.findByPk(id)
+      await instance.update({ name, description, price, CategoryId })
+
+      let nameProduct = instance.name
+
+      res.redirect(`/products?msgEdit=${nameProduct}`)
     } catch (err) {
       res.send(err)
     }

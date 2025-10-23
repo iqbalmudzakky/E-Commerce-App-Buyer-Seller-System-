@@ -44,7 +44,8 @@ module.exports = (sequelize, DataTypes) => {
             name: {
               [Op.iLike]: `%${search}%`
             }
-          }
+          },
+          order: [["id"]]
         })
 
       } else if (role === "seller") {
@@ -60,7 +61,8 @@ module.exports = (sequelize, DataTypes) => {
             name: {
               [Op.iLike]: `%${search}%`
             }
-          }
+          },
+          order: [["id"]]
         })
       }
       console.log(data);

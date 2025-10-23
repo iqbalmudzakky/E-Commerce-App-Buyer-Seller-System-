@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs")
 
 // Hash Password - pakai di register
 const salt = bcrypt.genSaltSync(10);
-const hash = bcrypt.hashSync("apa ya", salt); // <-- set hash password 
+const hash = bcrypt.hashSync("apa ya", salt); // <-- set hash password
 
 console.log(hash, "<<-- ini hash password");
 
@@ -59,9 +59,7 @@ app.listen(port, () => {
 })
 */
 
-let obj = { a: 1 }
-let arr = [1, 2]
+// console.log(Date().now());
 
-console.log(typeof arr);
 
 

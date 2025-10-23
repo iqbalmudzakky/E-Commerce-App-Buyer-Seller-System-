@@ -60,7 +60,7 @@ class UserController {
         if (checkPass(password, user.password)) {
           req.session.userId = user.id
           req.session.role = user.role
-          req.session.userName = user.Profile.fullName
+          req.session.name = user.Profile.fullName
 
           res.redirect("/products")
 
