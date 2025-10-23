@@ -14,11 +14,22 @@
       .empty { text-align:center; color:#555; font-style:italic; margin-top:1rem; }
       a.btn { display:inline-block; padding:.5rem .9rem; border:1px solid #bbb; border-radius:.5rem; text-decoration:none; color:#222; background:#f7f7f7; }
       a.btn:hover { background:#eee; }
+
+      /* [ADD] pastikan kolom aksi di paling kanan rata kanan */
+      td:last-child, th:last-child { text-align: right; }
     </style>
   </head>
   <body>
     <div class="wrap">
       <h1>List Kategori</h1>
+
+      <% /* [ADD] tampilkan role pengguna bila dikirim dari controller */ %>
+      <% if (typeof role !== 'undefined' && role) { %>
+        <div style="text-align:center; color:#555; margin:-.25rem 0 1rem;">
+          Role: <strong><%= role %></strong>
+        </div>
+      <% } %>
+
       <div style="margin-bottom:1rem; text-align:center;">
         <a href="/categories/add" class="btn">+ Tambah Kategori</a>
       </div>
@@ -31,6 +42,14 @@
             <tr>
               <th>#</th>
               <th>Nama Kategori</th>
+
+              <% /* [ADD] kolom jumlah produk (hanya muncul jika ada productCount, biasanya untuk Seller) */ %>
+              <% if (categories && categories.length && categories[0].dataValues && categories[0].dataValues.productCount !== undefined) { %>
+                <th>Produk Saya</th>
+              <% } %>
+
+              <% /* [ADD] kolom aksi di paling kanan */ %>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +57,16 @@
               <tr>
                 <td><%= i + 1 %></td>
                 <td><%= c.name %></td>
+
+                <% /* [ADD] tampilkan jumlah produk milik seller (jika tersedia) */ %>
+                <% if (c.dataValues && c.dataValues.productCount !== undefined) { %>
+                  <td><%= Number(c.dataValues.productCount) || 0 %></td>
+                <% } %>
+
+                <% /* [ADD] tombol aksi See Detail */ %>
+                <td>
+                  <a href="/categories/<%= c.id %>" class="btn">See Detail</a>
+                </td>
               </tr>
             <% }) %>
           </tbody>
