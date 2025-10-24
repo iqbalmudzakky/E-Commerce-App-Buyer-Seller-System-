@@ -1,10 +1,43 @@
 const qrcode = require("qrcode")
 const { convertIDR, convertDate } = require("../helper/converterHelper");
-const { User, Profile, Product, Category } = require("../models")
+const { User, Profile, Product, Category, UserProduct } = require("../models")
 
 class WishlistController {
+  // GET /wishlist/add/:productId → add product to wishlist
+  static async addToWishlist(req, res) {
+    try {
+      const { productId } = req.params;
+      const userId = req.session.userId;
+
+      // Check if product already in wishlist
+      const existingWishlist = await UserProduct.findOne({
+        where: {
+          UserId: userId,
+          ProductId: productId
+        }
+      });
+
+      if (existingWishlist) {
+        return res.redirect('/products?msg=Product already in wishlist');
+      }
+
+      // Add to wishlist
+      await UserProduct.create({
+        UserId: userId,
+        ProductId: productId
+      });
+
+      res.redirect('/products?msg=Product added to wishlist successfully');
+    } catch (err) {
+      console.log('WishlistController.addToWishlist error =>', err);
+      res.redirect('/products?error=Failed to add product to wishlist');
+    }
+  }
+
   // GET /wishlist → render placeholder
   static async list(req, res) {
+    const role = req.session?.role || null;
+    const name = req.session?.name || null;
 
     let data = await User.findByPk(req.session.userId, {
       include: [Profile, {
@@ -16,7 +49,7 @@ class WishlistController {
       }]
     })
     // res.json(data)
-    res.render('wishlist/list', { title: 'My Wishlist', data, convertIDR });
+    res.render('wishlist/list', { title: 'My Wishlist', data, convertIDR, role, name });
   }
 
   static async buyNow(req, res) {

@@ -5,8 +5,10 @@ class UserController {
   static async showRegister(req, res) {
     try {
       const { errors } = req.query
+      const role = req.session?.role || null;
+      const name = req.session?.name || null;
 
-      res.render("users/register", { errors })
+      res.render("users/register", { errors, role, name })
     } catch (err) {
       res.send(err)
     }
@@ -37,8 +39,10 @@ class UserController {
   static async showLogin(req, res) {
     try {
       const { errors } = req.query
+      const role = req.session?.role || null;
+      const name = req.session?.name || null;
 
-      res.render("users/login", { errors })
+      res.render("users/login", { errors, role, name })
     } catch (err) {
       res.send(err)
     }

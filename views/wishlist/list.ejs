@@ -4,60 +4,100 @@
     <meta charset="utf-8" />
     <title><%= title || 'My Wishlist' %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
-      .wrap { max-width: 800px; margin: 0 auto; }
-      h1 { margin-bottom: .5rem; text-align:center; }
-      h2 { margin-bottom: .5rem; text-align:center; }
-      p.help { color:#555; text-align:center; }
-      .actions { margin: 1.25rem 0 2rem; text-align:center; }
-      a.btn { display:inline-block; padding:.5rem .9rem; border:1px solid #bbb; border-radius:.5rem; text-decoration:none; color:#222; background:#f7f7f7; }
-      a.btn:hover { background:#eee; }
-      .empty { text-align:center; color:#444; font-style:italic; }
+  <style>
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      background: #f8fafc;
+    }
+    .main-content { flex: 1; }
+      .container { max-width: 1000px; margin: 0 auto; padding: 0 1rem; }
+      .header { margin: 2rem 0 1.5rem; }
+      h1 { margin-bottom: .5rem; text-align: center; color: #333; }
+      h2 { margin-bottom: .5rem; text-align: center; color: #555; }
+      p.help { color: #555; text-align: center; margin-bottom: 1.5rem; }
+      .actions { margin: 1.25rem 0 2rem; text-align: center; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+      a.btn { display: inline-block; padding: .5rem .9rem; border: 1px solid #bbb; border-radius: .5rem; text-decoration: none; color: #222; background: #f7f7f7; transition: all 0.3s ease; }
+      a.btn:hover { background: #eee; transform: translateY(-1px); }
+      .btn-primary { background: #007bff; color: white; border-color: #007bff; font-weight: 500; }
+      .btn-primary:hover { background: #0056b3; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,123,255,0.3); }
+      .empty { text-align: center; color: #444; font-style: italic; margin: 2rem 0; }
+      table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+      th, td { border: 1px solid #ddd; padding: .5rem; text-align: left; }
+      th { background: #fafafa; font-weight: 600; }
+      td:last-child { text-align: center; white-space: nowrap; }
+      td:last-child .btn { margin: 0; display: inline-block; }
+      .top-spacer { height: .5rem; }
+      
+      /* Responsive table */
+      @media (max-width: 768px) {
+        table { font-size: 0.9rem; }
+        th, td { padding: 0.3rem; }
+        .btn { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
+        .actions { flex-direction: column; align-items: center; }
+        .actions .btn { width: 200px; }
+      }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <h1><%= title || 'My Wishlist' %></h1>
-      <p class="help">Halaman wishlist aktif. Fungsinya akan diisi nanti (sesuai prioritas tim).</p>
+    <!-- NAVBAR -->
+    <%- include('../partials/navbar', { role, name }) %>
+
+    <div class="main-content">
+      <div class="top-spacer"></div>
+
+      <div class="container">
+      <div class="header">
+        <h1><%= title || 'My Wishlist' %></h1>
+      </div>
 
       <% if (data.Products.length) { %>
         <h2>Hello, <%= data.Profile.fullName %>, wanna checkout now?</h2>
-      <table border="1">
-        <tr>
-          <th>No.</th>
-          <th>Product Name</th>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Last Updated</th>
-          <th>Contact</th>
-          <th>Address</th>
-          <th>Action</th>
-        </tr>
-        <% data.Products.forEach((el, i) => { %>
-          <tr>
-            <td><%= i + 1 %></td>
-            <td><%= el.name %></td>
-            <td><%= el.Category.name %></td>
-            <td><%= el.description %></td>
-            <td><%= el.idr %></td>
-            <td><%= el.lastUpdate(el.updatedAt) %></td>
-            <td><%= el.User.Profile.phone %></td>
-            <td><%= el.User.Profile.address %></td>
-            <td><button><a href="">Buy Now</a></button></td>
-          </tr>
-        <% }) %>
-      </table>
-      
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Last Updated</th>
+              <th>Contact</th>
+              <th>Address</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.Products.forEach((el, i) => { %>
+              <tr>
+                <td><%= i + 1 %></td>
+                <td><%= el.name %></td>
+                <td><%= el.Category.name %></td>
+                <td><%= el.description %></td>
+                <td><%= el.idr %></td>
+                <td><%= el.lastUpdate(el.updatedAt) %></td>
+                <td><%= el.User.Profile.phone %></td>
+                <td><%= el.User.Profile.address %></td>
+                <td><a href="/wishlist/<%= data.id %>/buyNow" class="btn btn-primary">Buy Now</a></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
       <% } else { %>
         <p class="empty">Belum ada item ditampilkan di sini.</p>
       <% } %>
         
       <div class="actions">
         <a class="btn" href="/products">← Kembali ke Product List</a>
-        <a class="btn" href="/wishlist/<%= data.id %>/buyNow">Buy Now</a>
+        <a class="btn btn-primary" href="/wishlist/<%= data.id %>/buyNow">Buy Now</a>
       </div>
     </div>
+    </div>
+
+    <!-- FOOTER -->
+    <%- include('../partials/footer') %>
   </body>
 </html>

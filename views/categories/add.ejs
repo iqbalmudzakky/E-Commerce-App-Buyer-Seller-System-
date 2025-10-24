@@ -5,34 +5,65 @@
     <title><%= title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
-      .wrap { max-width: 400px; margin: 0 auto; }
-      h1 { text-align:center; margin-bottom:1rem; }
-      label { display:block; margin:.5rem 0 .25rem; }
-      input[type=text] { width:100%; padding:.5rem; border:1px solid #bbb; border-radius:.5rem; }
-      button { margin-top:1rem; padding:.5rem 1rem; border:1px solid #aaa; background:#f7f7f7; border-radius:.5rem; cursor:pointer; }
-      button:hover { background:#eee; }
-      .error { color:red; margin-bottom:1rem; text-align:center; }
-      a.btn { display:inline-block; margin-top:1rem; text-decoration:none; color:#222; }
+      html, body { height: 100%; margin: 0; padding: 0; }
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: #222;
+        display: flex;
+        flex-direction: column;
+        background: #f8fafc;
+      }
+      .main-content { flex: 1; }
+      .container { max-width: 500px; margin: 0 auto; padding: 0 1rem; }
+      .header { margin: 2rem 0 1.5rem; }
+      .header h1 { text-align: center; margin-bottom: 1rem; color: #333; }
+      .form-container { background: #f8fafc; padding: 2rem; border-radius: .75rem; border: 1px solid #eee; }
+      .form-group { margin-bottom: 1rem; }
+      label { display: block; margin-bottom: .5rem; font-weight: 500; }
+      input[type="text"] { width: 100%; padding: .6rem; border: 1px solid #ccc; border-radius: .5rem; font-size: 1rem; }
+      input[type="text"]:focus { outline: none; border-color: #666; }
+      .btn { display: inline-block; padding: .6rem 1rem; border: 1px solid #bbb; border-radius: .5rem; background: #f7f7f7; text-decoration: none; color: #222; cursor: pointer; }
+      .btn:hover { background: #eee; }
+      .btn-primary { background: #007bff; color: white; border-color: #007bff; }
+      .btn-primary:hover { background: #0056b3; }
+      .error { color: red; margin-bottom: 1rem; text-align: center; }
+      .back-link { text-align: center; margin-top: 1rem; }
+      .top-spacer { height: .5rem; }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <h1>Tambah Kategori</h1>
+    <!-- NAVBAR -->
+    <%- include('../partials/navbar', { role, name }) %>
 
-      <% if (error) { %>
-        <div class="error"><%= error %></div>
-      <% } %>
+    <div class="main-content">
+      <div class="top-spacer"></div>
 
-      <form method="post" action="/categories/add">
-        <label>Nama Kategori</label>
-        <input type="text" name="name" value="<%= oldInput.name || '' %>" />
-        <button type="submit">Simpan</button>
-      </form>
+      <div class="container">
+      <div class="header">
+        <h1>Tambah Kategori</h1>
+      </div>
 
-      <div style="text-align:center;">
-        <a class="btn" href="/categories">← Kembali</a>
+      <div class="form-container">
+        <% if (error) { %>
+          <div class="error"><%= error %></div>
+        <% } %>
+
+        <form method="post" action="/categories/add">
+          <div class="form-group">
+            <label for="name">Nama Kategori</label>
+            <input type="text" name="name" id="name" value="<%= oldInput.name || '' %>" required />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Simpan</button>
+        </form>
+
+        <div class="back-link">
+          <a class="btn" href="/categories">← Kembali</a>
+        </div>
       </div>
     </div>
+    </div>
+
+    <!-- FOOTER -->
+    <%- include('../partials/footer') %>
   </body>
 </html>
