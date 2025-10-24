@@ -7,7 +7,7 @@ const router = express.Router()
 router.get("/", ProductController.showProduct)
 
 router.get("/add", isSeller, ProductController.showAddProduct)
-// router.post("/add", ProductController.addProduct)
+router.post("/add", isSeller, ProductController.addProduct)
 
 router.get("/:id/edit", ProductController.showEditProduct)
 router.post("/:id/edit", ProductController.editProduct)

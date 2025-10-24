@@ -3,7 +3,7 @@ const { Product, User, Category, Profile } = require("../models")
 class ProductController {
   static async showProduct(req, res) {
     try {
-      const { errors, search, msg, msgEdit } = req.query
+      const { errors, search, msg, msgEdit, error } = req.query
 
       let name = req.session.name
       let role = req.session.role
@@ -43,7 +43,7 @@ class ProductController {
       }
       console.log(name);
 
-      res.render("products/list", { data, role, errors, name, msg, msgEdit })
+      res.render("products/list", { data, role, errors, name, msg, msgEdit, error })
     } catch (err) {
       console.log(err);
 
@@ -53,9 +53,36 @@ class ProductController {
 
   static async showAddProduct(req, res) {
     try {
-      res.render("products/add")
+      const { errors } = req.query
+      const role = req.session?.role || null;
+      const name = req.session?.name || null;
+      
+      const categories = await Category.findAll({
+        attributes: ['id', 'name']
+      })
+      
+      res.render("products/add", { 
+        errors: errors || undefined, 
+        role, 
+        name, 
+        categories 
+      })
     } catch (err) {
       res.send(err)
+    }
+  }
+
+  static async addProduct(req, res) {
+    try {
+      const { name, description, price, CategoryId } = req.body
+      const userId = req.session.userId
+
+      await Product.create({ name, description, price, CategoryId, UserId: userId })
+
+      res.redirect('/products?msg=Product added successfully')
+    } catch (err) {
+      console.log('ProductController.addProduct error =>', err);
+      res.redirect('/products/add?errors=Failed to add product')
     }
   }
 
@@ -77,13 +104,15 @@ class ProductController {
   static async showEditProduct(req, res) {
     try {
       const { id } = req.params
+      const role = req.session?.role || null;
+      const name = req.session?.name || null;
 
       let categories = await Category.findAll({
-        attibutes: ['id', 'name']
+        attributes: ['id', 'name']
       })
       let data = await Product.findByPk(id)
 
-      res.render("products/edit", { data, categories })
+      res.render("products/edit", { data, categories, role, name })
     } catch (err) {
       res.send(err)
     }

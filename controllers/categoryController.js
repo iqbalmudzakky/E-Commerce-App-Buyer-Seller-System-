@@ -19,6 +19,7 @@ class CategoryController {
       // [ADD] ambil role & user id dari session
       const role = req.session?.role;      // 'Buyer' | 'Seller'
       const userId = req.session?.userId;  // id user login
+      const name = req.session?.name || null;
       let categories;
 
       if (role === "Seller" && userId) {
@@ -53,6 +54,7 @@ class CategoryController {
         title: "Category List",
         categories,
         role,
+        name,
       });
     } catch (err) {
       console.log("CategoryController.showCategory error =>", err);
@@ -65,10 +67,15 @@ class CategoryController {
   // Menampilkan form tambah kategori baru
   // ======================================================
   static showAddCategory(req, res) {
+    const role = req.session?.role || null;
+    const name = req.session?.name || null;
+    
     res.render("categories/add", {
       title: "Tambah Kategori",
       error: null,
       oldInput: {},
+      role,
+      name,
     });
   }
 
@@ -100,10 +107,15 @@ class CategoryController {
       res.redirect("/categories");
     } catch (err) {
       console.log("CategoryController.addCategory error =>", err.message);
+      const role = req.session?.role || null;
+      const name = req.session?.name || null;
+      
       res.render("categories/add", {
         title: "Tambah Kategori",
         error: err.message,
         oldInput: req.body,
+        role,
+        name,
       });
     }
   }

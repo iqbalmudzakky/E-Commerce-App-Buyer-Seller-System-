@@ -5,44 +5,341 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title><%= title || 'Home' %></title>
   <style>
-    body { font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; margin:0; color:#222; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
-    .hero { padding: 2.5rem 0; display: grid; gap: .75rem; text-align: center; background: #f8fafc; }
-    .hero h1 { margin: 0; font-size: 1.8rem; }
-    .hero p { margin: .25rem 0 1rem; color:#555; }
-    .btn { display:inline-block; padding:.6rem 1rem; border:1px solid #bbb; border-radius:.6rem; background:#fff; text-decoration:none; color:#222; }
-    .btn:hover { background:#f1f1f1; }
-    .hero-cats { display:grid; gap:1rem; padding: 1.5rem 0; }
-    @media (min-width: 720px) { .hero-cats { grid-template-columns: repeat(3, 1fr); } }
-    .hero-card { position:relative; overflow:hidden; border:1px solid #eee; border-radius: .75rem; background:#fff; }
-    .hero-card img { width:100%; height:200px; object-fit:cover; display:block; }
-    .hero-card .label { position:absolute; left:.75rem; bottom:.75rem; background:rgba(255,255,255,.9); padding:.3rem .6rem; border-radius:.5rem; font-weight:600; }
-    .section { padding: 2rem 0; }
-    .section h2 { margin:.2rem 0 1rem; text-align:center; font-size:1.4rem; }
-    .grid { display:grid; gap:.75rem; }
-    @media (min-width: 720px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-    .card { border:1px solid #eee; border-radius:.75rem; padding: .9rem; background:#fff; display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
-    .muted { color:#666; font-style:italic; text-align:center; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      color: #333; 
+      display: flex; 
+      flex-direction: column; 
+      background: #f8fafc;
+    }
+    .main-content { flex: 1; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    
+    /* Hero Section - Tokopedia Style */
+    .hero { 
+      padding: 3rem 0; 
+      text-align: center; 
+      background: linear-gradient(135deg, #42b883 0%, #35495e 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero h1 { 
+      margin: 0; 
+      font-size: 2.5rem; 
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .hero p { 
+      margin: 0 0 2rem; 
+      font-size: 1.2rem; 
+      opacity: 0.9;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ff6b35;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    /* Buttons */
+    .btn { 
+      display: inline-block; 
+      padding: .75rem 1.5rem; 
+      border: none; 
+      border-radius: 8px; 
+      text-decoration: none; 
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-primary { 
+      background: #ff6b35; 
+      color: white; 
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+    .btn-primary:hover { 
+      background: #e55a2b; 
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    }
+    .btn-secondary {
+      background: white;
+      color: #42b883;
+      border: 2px solid #42b883;
+    }
+    .btn-secondary:hover {
+      background: #42b883;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    /* Featured Categories */
+    .featured-header {
+      text-align: center;
+      padding: 2rem 0 1rem;
+    }
+    .featured-header h2 {
+      margin: 0 0 0.5rem;
+      font-size: 2rem;
+      color: #2c3e50;
+    }
+    .featured-header p {
+      margin: 0;
+      color: #7f8c8d;
+      font-size: 1.1rem;
+    }
+    .hero-cats { 
+      display: grid; 
+      gap: 1.5rem; 
+      padding: 1rem 0 3rem; 
+      background: white;
+    }
+    @media (min-width: 768px) { 
+      .hero-cats { grid-template-columns: repeat(3, 1fr); } 
+    }
+    .hero-card { 
+      position: relative; 
+      overflow: hidden; 
+      border-radius: 16px; 
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .hero-card:hover { 
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    .hero-card img { 
+      width: 100%; 
+      height: 200px; 
+      object-fit: cover; 
+      display: block; 
+      background: linear-gradient(135deg, #42b883, #369870);
+    }
+    .hero-card .label { 
+      position: absolute; 
+      left: 1rem; 
+      bottom: 1rem; 
+      background: rgba(255,255,255,0.95); 
+      padding: .5rem 1rem; 
+      border-radius: 20px; 
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #333;
+      backdrop-filter: blur(10px);
+    }
+    
+    /* Section Styling */
+    .section { 
+      padding: 3rem 0; 
+      background: white;
+    }
+    .section:nth-child(even) {
+      background: #f8fafc;
+    }
+    .section h2 { 
+      margin: 0 0 2rem; 
+      text-align: center; 
+      font-size: 2rem; 
+      font-weight: 700;
+      color: #2c3e50;
+      position: relative;
+    }
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #42b883, #ff6b35);
+      border-radius: 2px;
+    }
+    
+    /* Category Grid */
+    .grid { 
+      display: grid; 
+      gap: 1.5rem; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .card { 
+      border: none; 
+      border-radius: 12px; 
+      padding: 1.5rem; 
+      background: white; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transform: translateY(-3px);
+    }
+    .card-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+    }
+    .category-icon {
+      font-size: 2rem;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #42b883, #369870);
+      border-radius: 12px;
+      color: white;
+      flex-shrink: 0;
+    }
+    .category-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+      overflow: hidden;
+    }
+    .category-info strong {
+      font-size: 1.1rem;
+      color: #2c3e50;
+      margin: 0;
+      line-height: 1.4;
+      word-break: normal;
+      overflow-wrap: normal;
+      white-space: normal;
+    }
+    .category-desc {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+    }
+    .card .btn {
+      padding: .5rem 1rem;
+      font-size: 0.9rem;
+      background: #42b883;
+      color: white;
+      flex-shrink: 0;
+    }
+    .card .btn:hover {
+      background: #369870;
+      transform: none;
+    }
+    
+    .muted { 
+      color: #7f8c8d; 
+      font-style: italic; 
+      text-align: center; 
+      font-size: 1.1rem;
+      padding: 2rem 0;
+    }
     .top-spacer { height: .5rem; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+      .section h2 { font-size: 1.5rem; }
+      .hero-cats { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .hero-actions .btn { width: 200px; }
+      .card-content { flex-direction: column; text-align: center; gap: 0.5rem; }
+      .card { flex-direction: column; text-align: center; gap: 1rem; }
+    }
   </style>
 </head>
 <body>
   <!-- NAVBAR -->
   <%- include('partials/navbar', { role, name }) %>
 
+  <div class="main-content">
   <div class="top-spacer"></div>
 
-  <!-- HERO: promo member baru (tanpa tombol daftar sekarang) -->
+    <!-- HERO: promo member baru dengan CTA menarik -->
   <section class="hero">
     <div class="container">
-      <h1>Selamat datang di E-Commerce App</h1>
-      <p>Promo spesial untuk member baru — langsung daftar dan temukan produk favoritmu.</p>
-      <!-- Tombol Daftar Sekarang dihapus -->
+        <div class="hero-content">
+          <h1>🎉 Selamat Datang di E-Commerce App</h1>
+          <p>Temukan jutaan produk terbaik dengan harga terbaik! Dapatkan promo spesial untuk member baru dan nikmati pengalaman berbelanja yang menyenangkan.</p>
+          <div class="hero-actions">
+            <% if (!role) { %>
+              <a href="/register" class="btn btn-primary">🚀 Daftar Sekarang</a>
+              <a href="/products" class="btn btn-secondary">🔍 Jelajahi Produk</a>
+            <% } else { %>
+              <a href="/products" class="btn btn-primary">🛒 Mulai Belanja</a>
+              <a href="/wishlist" class="btn btn-secondary">❤️ Lihat Wishlist</a>
+            <% } %>
+          </div>
+          
+          <!-- Stats Section -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number">1000+</div>
+              <div class="stat-label">Produk Tersedia</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Penjual Terpercaya</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">99%</div>
+              <div class="stat-label">Kepuasan Pelanggan</div>
+            </div>
+          </div>
+        </div>
     </div>
   </section>
 
   <!-- HERO: featured categories (2–3 gambar, klik ke /categories/:id) -->
   <section class="container">
+      <div class="featured-header">
+        <h2>🔥 Kategori Populer</h2>
+        <p>Temukan produk terbaik dari kategori favorit Anda</p>
+      </div>
     <div class="hero-cats">
       <% if (featuredCategories && featuredCategories.length) { %>
         <% featuredCategories.forEach(fc => { %>
@@ -58,17 +355,47 @@
   <!-- CATEGORY HIGHLIGHTS -->
   <section class="section">
     <div class="container">
-      <h2>Jelajahi Kategori</h2>
+        <h2>🌟 Jelajahi Semua Kategori</h2>
+        <p style="text-align: center; color: #7f8c8d; margin-bottom: 2rem;">Temukan berbagai kategori produk yang sesuai dengan kebutuhan Anda</p>
 
       <% if (!categories || !categories.length) { %>
         <p class="muted">Kategori belum tersedia.</p>
       <% } else { %>
         <div class="grid">
-          <% categories.forEach(cat => { %>
+            <% categories.forEach((cat, index) => { %>
+              <% 
+                // Mapping icon berdasarkan nama kategori
+                let icon = '📦'; // default icon
+                switch(cat.name) {
+                  case 'Elektronik':
+                    icon = '📱';
+                    break;
+                  case 'Pakaian':
+                    icon = '👕';
+                    break;
+                  case 'Alat Rumah Tangga':
+                    icon = '🏠';
+                    break;
+                  case 'Makanan & Minuman':
+                    icon = '🍔';
+                    break;
+                  case 'Olahraga':
+                    icon = '⚽';
+                    break;
+                  default:
+                    icon = '📦';
+                }
+              %>
             <div class="card">
-              <div><strong><%= cat.name %></strong></div>
+                <div class="card-content">
+                  <div class="category-icon"><%= icon %></div>
+                  <div class="category-info">
+                    <strong><%= cat.name %></strong>
+                    <span class="category-desc">Lihat semua produk</span>
+                  </div>
+                </div>
               <div>
-                <a class="btn" href="/categories/<%= cat.id %>">See Detail</a>
+                  <a class="btn" href="/categories/<%= cat.id %>">Lihat Detail</a>
               </div>
             </div>
           <% }) %>
@@ -76,6 +403,7 @@
       <% } %>
     </div>
   </section>
+  </div>
 
   <!-- FOOTER -->
   <%- include('partials/footer') %>
